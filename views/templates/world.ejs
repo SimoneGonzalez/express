@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title> <%= title %> | Awesomeist Things</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+      <h1> My site title is <%= title %> </h1>
+      <h2> <%= welcome %> </h2>
+
+        <ul>
+            <% awesomeThings.forEach(function(thing) { %>
+                <li><%= thing %> is awesome!</li>
+            <%    }); %>
+
+    </body>
+</html>

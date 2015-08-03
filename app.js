@@ -1,41 +1,36 @@
+//requires
 var express = require('express');
+var routes = require('./routes/index');
+var pizza = require('./routes/pizza');
+var lessCSS = require('less-middleware');
+
+//variables
 var app = express();
 
+//settings
 app.set('view engine', 'ejs');
+app.set('case sensitive routing', true);
 
+app.locals.title = 'aweso.me';
 
+app.use(lessCSS('public'));
+
+//middlewares
 app.use(function(req, res, next) {
-  console.log('Request at' + new Date.toISOString());
+  console.log('Request at' + new Date().toISOString());
   next();
 });
 
 app.use(express.static('public'));
 
+//routes
+app.use('/', routes);
+app.use('/pizza', pizza);
+
+//errors
 app.use(function(req, res) {
-  res.status(403);
-  res.send('Unauthorized!');
+  res.status(403).send('Unauthorized!');
 });
-      //route     cb
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
-
-app.get('/hello', function (req, res) {
-  res.send('Hello!');
-});
-
-app.get('/world', function (req, res) {
-  res.render('templates/world');
-});
-
-app.get('/json', function(req, res) {
-  res.send({an: 'object'})
-});
-
-app.get('/thisshoulderror', function(req, res) {
-  res.send(badVariable)
-});
-
 
 app.use(function(err, req, res, next) {
   //pass 4 arguments to create an error handling middleware
@@ -49,3 +44,4 @@ var server = app.listen(3000, function () {
 
   console.log('Example app listening at http://%s:%s', host, port);
 });
+
